@@ -1,5 +1,4 @@
 import { TableColumnType, TableProps } from 'antd';
-import deepmerge from 'deepmerge';
 import { ResolvedProps, TreeTablePluginContext } from '../types';
 
 export const usePluginContainer = (
