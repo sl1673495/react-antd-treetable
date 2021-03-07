@@ -5,6 +5,8 @@ import {
   DownOutlined,
 } from '@ant-design/icons';
 import { INTERNAL_IS_LOADING } from './constant';
+import { RenderExpandIconProps } from 'rc-table/lib/interface';
+import { TableProps } from 'antd';
 
 const iconStyle = {
   marginRight: 8,
@@ -13,14 +15,18 @@ const iconStyle = {
   flexShrink: 0,
 };
 
-export const TreeTableExpandIcon = ({
-  expanded,
-  expandable,
-  onExpand,
-  record,
-}) => {
+export const TreeTableExpandIcon = (
+  props: RenderExpandIconProps<any> & {
+    expandIcon: TableProps<any>['expandIcon'];
+  },
+): React.ReactElement => {
+  const { expandIcon, ...expandIconProps } = props;
+  const { expanded, expandable, onExpand, record } = expandIconProps;
   if (record[INTERNAL_IS_LOADING]) {
     return <LoadingOutlined style={iconStyle} />;
+  }
+  if (expandIcon) {
+    return expandIcon(expandIconProps) as React.ReactElement;
   }
   if (expandable) {
     if (expanded) {

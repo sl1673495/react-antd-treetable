@@ -1,5 +1,3 @@
-import { INTERNAL_LOADING_KEY, INTERNAL_PAGINATION_KEY } from './constant';
-
 /**
  * 递归树的通用函数
  */
@@ -42,16 +40,6 @@ export const INTERNAL_PREFIX = '__slardar_treetable';
 export const createInternalConstant = (value: string) =>
   `${INTERNAL_PREFIX}_${value}`;
 
-export const isInternalLoadingNode = (record, rowKey) => {
-  return record?.[rowKey]?.startsWith?.(INTERNAL_LOADING_KEY);
-};
-
-export const isInternalPaginationNode = (record, rowKey) => {
-  return record?.[rowKey]?.startsWith?.(INTERNAL_PAGINATION_KEY);
-};
-
 export const isInternalNode = (record, rowKey) => {
   return record[rowKey]?.startsWith?.(INTERNAL_PREFIX);
 };
-
-export const isTreeTableInternalNode = isInternalNode;

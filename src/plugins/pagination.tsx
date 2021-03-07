@@ -10,11 +10,15 @@ import {
   INTERNAL_IS_LOADING,
   INTERNAL_PAGINATION_KEY,
 } from '../constant';
-import { isInternalPaginationNode, createInternalConstant } from '../utils';
+import { createInternalConstant } from '../utils';
 
 export const INTERNAL_PAGINATION_CURRENT = createInternalConstant(
   'pagination_current',
 );
+
+export const isInternalPaginationNode = (record, rowKey) => {
+  return record?.[rowKey]?.startsWith?.(INTERNAL_PAGINATION_KEY);
+};
 
 export const generateInternalPaginationNode = (rowKey: string) => ({
   [rowKey]: `${INTERNAL_PAGINATION_KEY}-${Math.random()}`,

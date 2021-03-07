@@ -170,7 +170,12 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
           rowKey={rowKey}
           dataSource={dataSource}
           onExpand={onExpand}
-          expandIcon={TreeTableExpandIcon}
+          expandIcon={expandIconProps => (
+            <TreeTableExpandIcon
+              {...expandIconProps}
+              expandIcon={props.expandIcon}
+            />
+          )}
           expandedRowKeys={expandedRowKeys}
           onExpandedRowsChange={setExpandedRowKeys}
         />
