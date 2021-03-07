@@ -1,27 +1,73 @@
-# react-antd-treetable
+<h1 align="center">Welcome to react-antd-treetable 👋</h1>
+<p>
+  <img alt="Version" src="https://img.shields.io/badge/version-1.0.0-blue.svg?cacheSeconds=2592000" />
+</p>
 
-## Getting Started
+## 介绍
 
-Install dependencies,
+基于 antd Table 组件封装，比较适合用于展示堆栈信息。
 
-```bash
-$ npm i
+主要扩展的能力：
+
+1. 层级缩进**指示线**
+2. **远程懒加载**子节点
+3. 子节点**分页**
+4. 子节点**筛选**
+5. 子节点**空提示**
+
+这些功能全部通过插件实现，其他的 `props` 全部继承自 Ant Design 的 Table 组件。
+
+![截图](https://images.gitee.com/uploads/images/2021/0308/011425_ec8e825e_1087321.png '屏幕截图.png')
+
+## 用法
+
+需要依赖 `antd`, `@ant-design/icons`
+
+```sh
+npm i react-antd-treetable -S
 ```
 
-Start the dev server,
+最简单用法和 antd 的 Table 组件完全一致，数据中带有 `children` 字段即可：
 
-```bash
-$ npm start
+```tsx
+import React from 'react';
+import TreeTable from 'react-antd-treetable';
+
+const data = [
+  {
+    name: 'foo',
+    children: [
+      {
+        name: 'bar',
+      },
+    ],
+  },
+];
+
+const columns = [
+  {
+    title: '名称',
+    dataIndex: 'name',
+  },
+];
+
+const App = () => {
+  return <TreeTable rowKey="id" dataSource={data} columns={columns} />;
+};
+
+export default App;
 ```
 
-Build documentation,
+## 文档
 
-```bash
-$ npm run docs:build
-```
+更多功能和用法请看：
 
-Build library via `father-build`,
+https://react-antd-treetable.vercel.app/
 
-```bash
-$ npm run build
-```
+## Show your support
+
+Give a ⭐️ if this project helped you!
+
+---
+
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_

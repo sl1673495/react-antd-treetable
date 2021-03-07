@@ -34,8 +34,19 @@ export const usePluginContainer = (
      */
     mergeComponents() {
       let components: TableProps<any>['components'] = props.components || {};
+      const merge = (componentsA, componentsB) => {
+        const deepKeys = ['header', 'body'];
+        const merged: TableProps<any>['components'] = {};
+        deepKeys.forEach(key => {
+          if (componentsA[key] || componentsB[key]) {
+            merged[key] = Object.assign({}, componentsA[key], componentsB[key]);
+          }
+        });
+        merged['table'] = componentsA.table || componentsB.table;
+        return merged;
+      };
       for (const plugin of plugins) {
-        components = deepmerge.all([components, plugin?.components || {}]);
+        components = merge(components, plugin?.components || {});
       }
       return components;
     },

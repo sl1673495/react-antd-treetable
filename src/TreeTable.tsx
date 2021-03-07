@@ -4,7 +4,6 @@ import React, {
   useImperativeHandle,
   useState,
 } from 'react';
-import styled from 'styled-components';
 import { Table } from 'antd';
 import { TreeTableExpandIcon } from './TreeTableExpandIcon';
 import { usePluginContainer, useIndentLinePlugin } from './plugins';
@@ -15,12 +14,7 @@ import {
   INTERNAL_PARENT,
   INTERNAL_IS_LOADING,
 } from './constant';
-
-const Styled = styled.div`
-  .ant-table-tbody > tr > td {
-    border-bottom-color: transparent;
-  }
-`;
+import './TreeTable.css';
 
 export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
   (rawProps, ref) => {
@@ -158,7 +152,7 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
     };
 
     return (
-      <Styled>
+      <div className="react-antd-treetable">
         <Table
           {...defaultTableProps}
           {...restProps}
@@ -179,7 +173,7 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
           expandedRowKeys={expandedRowKeys}
           onExpandedRowsChange={setExpandedRowKeys}
         />
-      </Styled>
+      </div>
     );
   },
 );

@@ -1,26 +1,5 @@
 import React, { useMemo } from 'react';
-import styled from 'styled-components';
 import { INTERNAL_LEVEL, INTERNAL_PARENT } from '../../constant';
-
-const StyledTd = styled.td`
-  position: relative;
-`;
-
-// td 中的内容需要用 flex 容器包裹
-// 否则换行时内容会和缩进线重叠在一起
-const StyledContent = styled.div`
-  display: flex;
-`;
-
-const IndentLine = styled.div<{ indent: number }>`
-  position: absolute;
-  left: ${props => props.indent}px;
-  top: 0;
-  bottom: 0;
-  width: 1px;
-  height: 100%;
-  background-color: #e8e8e8;
-`;
 
 export const IndentCell = props => {
   const {
@@ -41,7 +20,7 @@ export const IndentCell = props => {
   if (dataIndex !== headDataIndex || !isParentExpanded) {
     return (
       <td className={className}>
-        <StyledContent>{children}</StyledContent>
+        <div className="react-antd-treetable-cell-content">{children}</div>
       </td>
     );
   }
@@ -57,14 +36,27 @@ export const IndentCell = props => {
     for (let index = 1; index < level; index++) {
       indents.push(index * indentSize);
     }
-    return indents.map(indent => <IndentLine indent={indent} key={indent} />);
+    return indents.map(indent => (
+      <div
+        style={{
+          position: 'absolute',
+          left: indent,
+          top: 0,
+          bottom: 0,
+          width: 1,
+          height: '100%',
+          backgroundColor: '#e8e8e8',
+        }}
+        key={indent}
+      />
+    ));
     // eslint-disable-next-line
   }, [level]);
 
   return (
-    <StyledTd className={className}>
+    <td className={`${className} react-antd-treetable-cell`}>
       {indent}
-      <StyledContent>{children}</StyledContent>
-    </StyledTd>
+      <div className="react-antd-treetable-cell-content">{children}</div>
+    </td>
   );
 };

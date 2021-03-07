@@ -4,7 +4,7 @@
 export const traverseTree = (
   treeList: any[],
   childrenColumnName: string,
-  callback
+  callback,
 ) => {
   const traverse = (list, parent = null, level = 1) => {
     list.forEach(treeNode => {
@@ -20,7 +20,7 @@ export const traverseTree = (
 
 export const resolveAllExpandableKeys = (
   dataSource,
-  { childrenColumnName = 'children', rowKey = 'id' } = {}
+  { childrenColumnName = 'children', rowKey = 'id' } = {},
 ) => {
   const keys: any[] = [];
   traverseTree(dataSource, childrenColumnName, node => {
@@ -35,7 +35,7 @@ export const resolveAllExpandableKeys = (
   return keys;
 };
 
-export const INTERNAL_PREFIX = '__slardar_treetable';
+export const INTERNAL_PREFIX = '__react_antd_treetable';
 
 export const createInternalConstant = (value: string) =>
   `${INTERNAL_PREFIX}_${value}`;

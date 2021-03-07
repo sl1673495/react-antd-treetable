@@ -4,7 +4,6 @@ import { TreeTablePlugin } from '../types';
 import { createInternalConstant } from '../utils';
 
 const INTERNAL_EMPTY_KEY = createInternalConstant('empty');
-
 interface UseEmptyPlugin {
   (
     EmptyNode?: React.ReactNode,

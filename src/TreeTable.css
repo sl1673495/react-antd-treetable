@@ -1,0 +1,16 @@
+.react-antd-treetable .ant-table-tbody > tr > td {
+  border-bottom-color: transparent;
+}
+
+.react-antd-treetable-cell {
+  position: relative;
+}
+
+.react-antd-treetable-cell-content {
+  display: flex;
+}
+
+.react-antd-treetable-filter-cell {
+  display: flex;
+  align-items: center;
+}

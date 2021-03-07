@@ -1,12 +1,12 @@
 import React from 'react';
+import { RenderExpandIconProps } from 'rc-table/lib/interface';
+import { TableProps } from 'antd';
 import {
   LoadingOutlined,
   RightOutlined,
   DownOutlined,
 } from '@ant-design/icons';
 import { INTERNAL_IS_LOADING } from './constant';
-import { RenderExpandIconProps } from 'rc-table/lib/interface';
-import { TableProps } from 'antd';
 
 const iconStyle = {
   marginRight: 8,

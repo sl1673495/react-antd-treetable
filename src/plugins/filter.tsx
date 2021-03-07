@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Popover, Input, PopoverProps, TableColumnType } from 'antd';
 import { FilterOutlined } from '@ant-design/icons';
 import { TreeTablePlugin } from '../types';
@@ -27,25 +26,6 @@ interface UseFilterPlugin<RecordType = any> {
 interface OnFetch<RecordType = any> {
   (record: RecordType, value: string): any;
 }
-
-const StyledFilterHead = styled.div`
-  display: flex;
-  align-items: center;
-
-  .content {
-    display: flex;
-    margin-right: 8px;
-  }
-`;
-
-const StyledFilterOutlined = styled(FilterOutlined)<{
-  $filtered: boolean;
-  $highlightIconColor: string;
-}>`
-  cursor: pointer;
-  margin-left: 8px;
-  color: ${props => (props.$filtered ? props.$highlightIconColor : undefined)};
-`;
 
 export const useFilterPlugin: UseFilterPlugin = (onFetch, options = {}) => {
   return (props, context) => {
@@ -91,7 +71,7 @@ export const useFilterPlugin: UseFilterPlugin = (onFetch, options = {}) => {
           const showFilter = enable ? enable(record) : defaultShowFilter;
 
           return (
-            <StyledFilterHead>
+            <div className="react-antd-treetable-filter-cell">
               {render?.(text, record, index) ?? text}
               {showFilter ? (
                 <Popover
@@ -110,13 +90,16 @@ export const useFilterPlugin: UseFilterPlugin = (onFetch, options = {}) => {
                   placement="bottom"
                   {...popover}
                 >
-                  <StyledFilterOutlined
-                    $filtered={!!token}
-                    $highlightIconColor={highlightIconColor}
+                  <FilterOutlined
+                    style={{
+                      color: !!token ? highlightIconColor : 'inherit',
+                      cursor: 'pointer',
+                      marginLeft: 8,
+                    }}
                   />
                 </Popover>
               ) : null}
-            </StyledFilterHead>
+            </div>
           );
         };
       }

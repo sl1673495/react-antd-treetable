@@ -15,17 +15,6 @@ const columns = [
   },
 ];
 
-const getData = async () => {
-  return [
-    {
-      id: `${Math.random()}`,
-      function_name: `sub_function_${`${Math.random()}`}`,
-      count: 100,
-      has_next: true,
-    },
-  ];
-};
-
 const data = [
   {
     id: `${Math.random()}`,
@@ -62,8 +51,6 @@ const data = [
     ],
   },
 ];
-
-const wait = time => new Promise(resolve => setTimeout(resolve, time));
 
 const DefaultExample = () => {
   return (

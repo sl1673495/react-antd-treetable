@@ -1,7 +1,7 @@
 {
-  "private": true,
   "name": "react-antd-treetable",
   "version": "1.0.0",
+  "files": ["dist"],
   "scripts": {
     "start": "dumi dev",
     "docs:build": "dumi build",
@@ -13,6 +13,7 @@
     "test": "umi-test",
     "test:coverage": "umi-test --coverage"
   },
+  "keywords": ["antd", "tree-table", "treetable", "react-treetable", "react-tree-table", "react-table", "react-tree", "antd-treetable"],
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
   "typings": "dist/index.d.ts",
@@ -30,8 +31,8 @@
   "dependencies": {
     "@ant-design/icons": "^4.5.0",
     "antd": "^4.13.0",
-    "react": "^16.12.0",
-    "styled-components": "^5.2.1"
+    "deepmerge": "^4.2.2",
+    "react": "^16.12.0"
   },
   "devDependencies": {
     "@types/styled-components": "^5.1.7",
