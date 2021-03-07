@@ -9,6 +9,8 @@ import {
 import { INTERNAL_IS_LOADING } from './constant';
 
 const iconStyle = {
+  width: 12,
+  height: 12,
   marginRight: 8,
   marginTop: 4,
   fontSize: 12,

@@ -107,8 +107,13 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
       return column;
     });
 
+    // hack: 解决 antd v4 一个奇怪的问题
+    // 只有一个节点且异步加上 children 的时候 无法显示展开按钮
+    // 所以处理完所有节点后 再开始渲染表格组件
+    const [ready, setReady] = useState(false);
     useEffect(() => {
       rewriteTree({ dataSource });
+      setReady(true);
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dataSource]);
 
@@ -150,6 +155,10 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
     const defaultTableProps = {
       pagination: false as const,
     };
+
+    if (!ready) {
+      return null;
+    }
 
     return (
       <div className="react-antd-treetable">
