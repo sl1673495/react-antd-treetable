@@ -64,15 +64,19 @@ export const TreeTable = React.forwardRef<TreeTableRef, TreeTableProps>(
         forceUpdate();
       }
     };
+
     const getNodeLoading = record => {
       return record?.[INTERNAL_IS_LOADING];
     };
+
     const getParentRecord = record => {
       return record?.[INTERNAL_PARENT];
     };
+
     const getRecordLevel = record => {
       return record?.[INTERNAL_LEVEL];
     };
+
     const nodeUtils = {
       setNodeLoading,
       getNodeLoading,
