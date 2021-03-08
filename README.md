@@ -17,7 +17,7 @@
 
 这些功能全部通过插件实现，其他的 `props` 全部继承自 Ant Design 的 Table 组件。
 
-![截图](https://images.gitee.com/uploads/images/2021/0308/011425_ec8e825e_1087321.png '屏幕截图.png')
+![预览](https://images.gitee.com/uploads/images/2021/0308/152445_3a1c6f47_1087321.gif "Kapture 2021-03-08 at 15.24.07.gif")
 
 ## 用法
 
