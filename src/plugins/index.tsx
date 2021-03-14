@@ -1,7 +1,9 @@
 import { TableColumnType, TableProps } from 'antd';
 import { ResolvedProps, TreeTablePluginContext } from '../types';
 
-export const usePluginContainer = (
+type Components = TableProps<any>['components'];
+
+export const usePluginContainer = <RecordType extends object = any>(
   props: ResolvedProps,
   context: TreeTablePluginContext,
 ) => {
@@ -12,17 +14,17 @@ export const usePluginContainer = (
     .filter(Boolean);
 
   const container = {
-    onColumn(column: TableColumnType<any>) {
+    onColumn(column: TableColumnType<RecordType>) {
       for (const plugin of plugins) {
         plugin?.onColumn?.(column);
       }
     },
-    onRecord(record, parentRecord, level) {
+    onRecord(record: RecordType, parentRecord: RecordType, level: number) {
       for (const plugin of plugins) {
         plugin?.onRecord?.(record, parentRecord, level);
       }
     },
-    onExpand(expanded, record) {
+    onExpand(expanded: boolean, record: RecordType) {
       for (const plugin of plugins) {
         plugin?.onExpand?.(expanded, record);
       }
@@ -32,22 +34,31 @@ export const usePluginContainer = (
      * 不处理自定义组件的冲突 后定义的 Cell 会覆盖前者
      */
     mergeComponents() {
-      let components: TableProps<any>['components'] = props.components || {};
-      const merge = (componentsA, componentsB) => {
-        const deepKeys = ['header', 'body'];
-        const merged: TableProps<any>['components'] = {};
-        deepKeys.forEach(key => {
-          if (componentsA[key] || componentsB[key]) {
-            merged[key] = Object.assign({}, componentsA[key], componentsB[key]);
+      const deepMerge = (...componentsArray: Components[]) => {
+        const mergeResult = {};
+        componentsArray = componentsArray.filter(Boolean);
+        componentsArray.forEach(components => {
+          const componentsKeys = Object.keys(components);
+          for (let componentKey of componentsKeys) {
+            const value = components[componentKey];
+            if (typeof value === 'function') {
+              // cell: Function
+              mergeResult[componentKey] = value;
+            } else if (typeof value === 'object') {
+              // body: { row: Function }
+              mergeResult[componentKey] = deepMerge(
+                ...componentsArray.map(object => object[componentKey]),
+              );
+            }
           }
         });
-        merged['table'] = componentsA.table || componentsB.table;
-        return merged;
+        return mergeResult;
       };
-      for (const plugin of plugins) {
-        components = merge(components, plugin?.components || {});
-      }
-      return components;
+      const allComponents = [
+        props.components,
+        ...plugins.map(plugin => plugin.components),
+      ];
+      return deepMerge(...allComponents);
     },
   };
 
